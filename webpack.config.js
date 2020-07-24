@@ -1,4 +1,5 @@
 const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader');
 const HWP = require('html-webpack-plugin');
 
 module.exports = {
@@ -16,6 +17,10 @@ module.exports = {
                 }]
             },
             {
+                test: /.vue$/, 
+                loader: 'vue-loader'
+            },
+            {
                 test: /\.s[ac]ss$/i,
                 use: [
                 // Creates `style` nodes from JS strings
@@ -31,6 +36,7 @@ module.exports = {
     plugins:[
         new HWP(
             {template: path.join(__dirname,'/src/index.html')}
-        )
+        ),
+        new VueLoaderPlugin(),
     ],
 };

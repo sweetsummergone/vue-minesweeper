@@ -10,9 +10,58 @@ export class MineField {
         }
         this.shuffle(mineFieldArray);
         mineFieldArray = this.createField(mineFieldArray);
+        mineFieldArray = this.checkNeighbor(mineFieldArray);
         return mineFieldArray;
     }
 
+    static checkNeighbor(field) { // КРАЯ НЕ ПОДСЧИТЫВАЕТ
+        for (let n = 1; n < field[0].length-1; n++) {
+            for (let m = 1; m < field.length-1; m++) {
+                if(field[n][m] != 'x') {
+                    if(field[n-1][m-1] === 'x') {
+                        field[n][m] += 1;
+                    }
+                    if(field[n][m-1] === 'x') {
+                        field[n][m] += 1;
+                    }
+                    if(field[n+1][m-1] === 'x') {
+                        field[n][m] += 1;
+                    }
+
+                    if(field[n-1][m] === 'x') {
+                        field[n][m] += 1;
+                    }
+                    if(field[n+1][m] === 'x') {
+                        field[n][m] += 1;
+                    }
+
+                    if(field[n-1][m+1] === 'x') {
+                        field[n][m] += 1;
+                    }
+                    if(field[n][m+1] === 'x') {
+                        field[n][m] += 1;
+                    }
+                    if(field[n+1][m+1] === 'x') {
+                        field[n][m] += 1;
+                    }
+                }
+            }
+        }
+        return field;
+    }
+
+    static addEmptyRows(arr) {
+        arr.push(new Array(arr.length));
+        return 0;
+    }
+
+    static rotateLeft(arr) {
+        return 0;
+    }
+
+    static delEmptyRows(arr) {
+        return 0;
+    }
     // static checkNeighbor(field) {
     //     for (let n = 1; n < field[0]-1; n++) {
     //         for (let m = 1; m < field.length-1; m++) {
@@ -51,7 +100,6 @@ export class MineField {
         for (let i = 0; i < Math.ceil(a.length/size); i++){
             subarray[i] = a.slice((i*size), (i*size) + size);
         }
-        console.log(subarray);
         return subarray;
     }
 }
