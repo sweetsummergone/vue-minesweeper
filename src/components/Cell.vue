@@ -10,25 +10,17 @@
         name: 'Cell',
         data() {
             return {
-                visible: false
+                visible: false,
             }
         },
-        // data() {
-        //     return {
-        //         x: 0,
-        //         y: 0,
-        //         val: 0
-        //     }
-        // },
         methods: {
             open: function(event){
                 if(event){
                     this.visible = true
-                    console.log(this.x,this.y);
                 }
             }
         },
-        props: ['x','y','val']
+        props: ['val']
     }
 </script>
 

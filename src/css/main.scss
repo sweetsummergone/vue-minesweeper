@@ -1,9 +1,17 @@
 @import "colors";
 
 body {
-    background-color: #FFFFF6;
+    background-color: $dark;
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+    color: $sand;
+}
+
+p {
+    color: $sand;
 }
 
 .minesweeper {
@@ -20,7 +28,7 @@ body {
 .col {
     flex: 1;
     position: relative;
-    background-color: #F0FAFA;
+    background-color: $indigo;
     border: 0.1rem solid black;
     margin: 0.5px 0.5px 0.5px 0.5px;
 }
