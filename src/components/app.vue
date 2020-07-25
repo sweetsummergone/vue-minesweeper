@@ -5,7 +5,7 @@
         <div class="grid">
             <div class="row" v-for="(row,rowIndex) in puzzle" :key="rowIndex">
                 <div class="cell" v-for="(cell,colIndex) in row" :key="colIndex">
-                    <p>{{cell}}</p>
+                    <p v-on:click="open">{{cell}}</p>
                 </div>
             </div>
         </div>
@@ -33,7 +33,9 @@
             generateField(){
                 const msArr = MineField.field(this.rows,this.cols,this.mines);
                 this.puzzle = msArr;
-                console.log('There is PUZZLE:'+this.puzzle);
+            },
+            open: function(event){
+                
             }
         }
     }

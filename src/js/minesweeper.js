@@ -9,8 +9,12 @@ export class MineField {
         console.log(mineFieldArray);
         this.shuffle(mineFieldArray);
         mineFieldArray = this.createField(mineFieldArray);
-        
+        //this.hideCells(mineFieldArray);
         return mineFieldArray;
+    }
+
+    static compareValue(r,c){
+        return value
     }
 
     static checkNeighbor(field) {
@@ -49,19 +53,6 @@ export class MineField {
         return field;
     }
 
-    static addEmptyRows(arr) {
-        arr.push(new Array(arr.length));
-        return 0;
-    }
-
-    static rotateLeft(arr) {
-        return 0;
-    }
-
-    static delEmptyRows(arr) {
-        return 0;
-    }
-
     static shuffle(a) {
         for (let i = a.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -95,4 +86,12 @@ export class MineField {
         }
         return a;
     }
+
+    // static hideCells(field) {
+    //     for (let i = 0; i < field.length; i++) {
+    //         for (let j = 0; j < field[0].length; j++) {
+    //             field[i][j].
+    //         }
+    //     }
+    // }
 }
