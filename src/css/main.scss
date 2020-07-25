@@ -17,8 +17,8 @@ body {
     justify-content: space-between;
 }
 
-.cell {
-    flex: 1 0 auto;
+.col {
+    flex: 1;
     position: relative;
     background-color: #F0FAFA;
     border: 0.1rem solid black;

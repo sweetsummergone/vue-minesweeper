@@ -4,8 +4,8 @@
         <!-- <button id="randomField">Random Field</button> -->
         <div class="grid">
             <div class="row" v-for="(row,rowIndex) in puzzle" :key="rowIndex">
-                <div class="cell" v-for="(cell,colIndex) in row" :key="colIndex">
-                    <p v-on:click="open">{{cell}}</p>
+                <div class="col" v-for="(col,colIndex) in row" :key="colIndex">
+                    <cell :x="rowIndex" :y="colIndex" :val="puzzle[rowIndex][colIndex]"></cell>
                 </div>
             </div>
         </div>
@@ -13,7 +13,8 @@
 </template>
 
 <script>
-    import { MineField } from '../js/minesweeper'
+    import { MineField } from '../js/minesweeper';
+    import Cell from './Cell.vue';
 
     export default {
         name: 'Minesweeper',
@@ -34,9 +35,12 @@
                 const msArr = MineField.field(this.rows,this.cols,this.mines);
                 this.puzzle = msArr;
             },
-            open: function(event){
-                
+            getValue(r,c){
+                console.log(r,c);
             }
+        },
+        components: {
+            cell: Cell
         }
     }
 </script>

@@ -6,7 +6,6 @@ export class MineField {
         let mineFieldArray = new Array(r*c);
         mineFieldArray.fill(0);
         mineFieldArray.fill('x',0,m);
-        console.log(mineFieldArray);
         this.shuffle(mineFieldArray);
         mineFieldArray = this.createField(mineFieldArray);
         //this.hideCells(mineFieldArray);
