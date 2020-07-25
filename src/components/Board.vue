@@ -1,8 +1,8 @@
 <template>
   <div class="board">
     <div class="row" v-for="(row,rowIndex) in puzzle" :key="rowIndex">
-        <div class="col" v-for="(col,colIndex) in row" :key="colIndex" ref="cells">
-            <cell :val="puzzle[rowIndex][colIndex]"></cell>
+        <div v-on:click="open" class="col" v-for="(col,colIndex) in row" :key="colIndex" ref="cells">
+            <cell :visible="cellVisible" :val="puzzle[rowIndex][colIndex]"></cell>
         </div>
     </div>
   </div>
@@ -15,12 +15,20 @@
         name: 'Board',
         data () {
             return {
+                cellVisible: false,
                 matrix: [],
             }
         },
         mounted() {
             // console.log(this.$refs.cells[0]);
-            console.log(this.$refs.cells[0].value);
+        },
+        methods: {
+           open: function(event){
+                if(event){
+                    console.log("WTF")
+                    //console.log(this.puzzle[rowIndex][colIndex])
+                }
+            }
         },
         components: {
             cell: Cell

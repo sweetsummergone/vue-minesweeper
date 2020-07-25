@@ -3,10 +3,20 @@ export class MineField {
         let r = rows || 10;
         let c = cols || 10;
         let m = mines || 10;
+    
+        // let minesCoord = []
+        // for (let  = 0;  < array.length; ++) {
+        //     const element = array[];
+            
+        // }
+        // let minesCoord = [Math.floor((Math.random() * r)), Math.floor((Math.random() * r))];
+        // console.log(minesCoord);
         let mineFieldArray = new Array(r*c);
+
         mineFieldArray.fill(0);
         mineFieldArray.fill('x',0,m);
         this.shuffle(mineFieldArray);
+        console.log(mineFieldArray);
         mineFieldArray = this.createField(mineFieldArray);
         //this.hideCells(mineFieldArray);
         return mineFieldArray;
