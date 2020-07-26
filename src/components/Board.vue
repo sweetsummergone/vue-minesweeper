@@ -1,8 +1,9 @@
 <template>
   <div class="board">
-    <div class="row" v-for="(row,rowIndex) in updatedField" :key="rowIndex">
+    <div class="row" v-for="(row,rowIndex) in visPuzzle" :key="rowIndex">
         <div class="col" v-for="(col,colIndex) in row" :key="colIndex">
-            <cell :val="updatedField[rowIndex][colIndex]" :row="rowIndex" :col="colIndex"></cell>
+            <cell v-if="visMatrix[rowIndex][colIndex] == 1" :vis="true" :val="visPuzzle[rowIndex][colIndex]" @click="emitGlobalOpenCell(row,col)"></cell>
+            <cell v-else :vis="false"></cell>
         </div>
     </div>
   </div>
@@ -16,24 +17,19 @@
 
     export default {
         name: 'Board',
-        data () {
-            return {
-                visMatrix: this.$store.getters.getMatrix,
-                visPuzzle: this.$store.getters.getPuzzle,
-                visible: false,
-            }
-        },
+        props: ['visMatrix','visPuzzle'],
         created(){ 
             if(!this.matrix){ console.log("No matrix") }
-            EventBus.$on('open-cell', data => {
-                store.commit('setMatrixVis',data)
-                return this.$store.getters.getMatrix;
-            });
+        },
+        methods: {
+            emitGlobalOpenCell(row,col) {
+                EventBus.$emit('open-cell', [row, col]);
+            }
         },
         computed: {
             updatedField() {
-                return this.$store.getters.getMatrix;
-            }
+                return this.$store.getters.getPuzzle;
+            },
         },
         components: {
             cell: Cell

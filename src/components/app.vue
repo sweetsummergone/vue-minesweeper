@@ -1,7 +1,8 @@
 <template>
     <div class="minesweeper">
-        <h1>{{sign}}</h1>
-        <board></board>
+        <!-- <h1>{{sign}}</h1>
+        <div class="cells">{{puzzle}}</div> -->
+        <board :visMatrix="matrix" :visPuzzle="puzzle"></board>
     </div>
 </template>
 
@@ -27,6 +28,10 @@
             store.commit('createPuzzle');
             this.puzzle = this.$store.getters.getPuzzle;
             this.matrix = this.$store.getters.getMatrix;
+            EventBus.$on('open-cell', data => {
+                store.commit('setMatrixVis',data)
+                return this.$store.getters.getPuzzle;
+            });
         },
         updated() {
             console.log(this.matrix)
@@ -37,6 +42,10 @@
     }
 </script>
 
-<style lang="stylus" scoped>
-
+<style lang="scss" scoped>
+.cells {
+    color: #FFF;
+    display: flex;
+    justify-content: center;
+}
 </style>
