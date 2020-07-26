@@ -1,39 +1,44 @@
 <template>
   <div class="board">
-    <div class="row" v-for="(row,rowIndex) in puzzle" :key="rowIndex">
-        <div v-on:click="open" class="col" v-for="(col,colIndex) in row" :key="colIndex" ref="cells">
-            <cell :visible="cellVisible" :val="puzzle[rowIndex][colIndex]"></cell>
+    <div class="row" v-for="(row,rowIndex) in updatedField" :key="rowIndex">
+        <div class="col" v-for="(col,colIndex) in row" :key="colIndex">
+            <cell :val="updatedField[rowIndex][colIndex]" :row="rowIndex" :col="colIndex"></cell>
         </div>
     </div>
   </div>
 </template>
 
 <script>
+
     import Cell from './Cell.vue';
+    import { EventBus } from '../js/app';
+    import {store} from '../js/store';
 
     export default {
         name: 'Board',
         data () {
             return {
-                cellVisible: false,
-                matrix: [],
+                visMatrix: this.$store.getters.getMatrix,
+                visPuzzle: this.$store.getters.getPuzzle,
+                visible: false,
             }
         },
-        mounted() {
-            // console.log(this.$refs.cells[0]);
+        created(){ 
+            if(!this.matrix){ console.log("No matrix") }
+            EventBus.$on('open-cell', data => {
+                store.commit('setMatrixVis',data)
+                return this.$store.getters.getMatrix;
+            });
         },
-        methods: {
-           open: function(event){
-                if(event){
-                    console.log("WTF")
-                    //console.log(this.puzzle[rowIndex][colIndex])
-                }
+        computed: {
+            updatedField() {
+                return this.$store.getters.getMatrix;
             }
         },
         components: {
             cell: Cell
         },
-        props: ['puzzle'],
+        
     }
 </script>
 
