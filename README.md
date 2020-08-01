@@ -1,4 +1,4 @@
-# VueJS Minesweeper
+# Vue.js Minesweeper
 
 ## Project setup
 ```
