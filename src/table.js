@@ -3,8 +3,11 @@ export class Table {
         this.cols = cols;
         this.rows = rows;
         this.mines = mines;
+        this.marksCounter = 0;
+        this.minesPosition = [];
         this.minefield = this.createMinefield(cols,rows,mines);
         this.matrixVisible = this.createMatrixVisible(cols,rows);
+        this.marksPosition = this.createMatrixVisible(cols,rows);
         this.won = false;
     }
 
@@ -24,12 +27,26 @@ export class Table {
         this._matrixVisible = value;
     }
 
+    get mines() {
+        return this._mines;
+    }
+
+    set mines(value) {
+        this._mines = value;
+    }
+
     createMinefield(rows, cols, mines) {
         let minefield = new Array(cols*rows);
         minefield.fill(0);
         minefield.fill('x',0,mines);
         this.shuffle(minefield)
         minefield = this.create2D(minefield,rows);
+        this.minesPosition = JSON.parse(JSON.stringify(minefield))
+        for (let i = 0; i < this.minesPosition.length; i++) {
+            for (let j = 0; j < this.minesPosition[1].length; j++) {
+                if(this.minesPosition[i][j] == 'x'){this.minesPosition[i][j]=true}
+            }
+        }
         this.createBorder(minefield)
         this.addNeighborMinesValues(minefield);
         return minefield;
@@ -40,6 +57,14 @@ export class Table {
         minefield.fill(0);
         minefield = this.create2D(minefield,rows);
         return minefield;
+    }
+
+    checkMarksInMatrix() {
+        if (JSON.stringify(this.marksPosition) === JSON.stringify(this.minesPosition)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     shuffle(a) {
@@ -122,6 +147,7 @@ export class Table {
 
     openCell(matrix, row, col) {
         if (matrix[row][col] != 1) {
+            if(this.marksPosition[row][col] == 1) {this.marksPosition[row][col] = 0; this.marksCounter -= 1}
             matrix[row][col] = 1;
             if (this.minefield[row][col] == 0) {
                 let neighbors = [];

@@ -1,5 +1,5 @@
 <template>
-    <div id="wrapper" v-on:click.prevent.right="markCell()" v-bind:class="{ closed: !isOpened }">
+    <div id="wrapper" v-bind:class="{ closed: !isOpened }">
         <h4>{{marker}}</h4>
         <!-- <h4 v-if="isMarked&&!isOpened">🚩</h4> -->
         <div :class="colorChanger" class="score">
@@ -14,19 +14,11 @@
 
 export default {
     name: 'Cell',
-    props: ['val','isOpened','isLost'],
+    props: ['val','isOpened','isMarked'],
     data: function() {
         return {
             activeColor: "gray",
-            isMarked: false,
-        }
-    },
-    created() {
-        this.set(this.isMarked,false)
-    },
-    methods: {
-        markCell() {
-            this.isMarked = !this.isMarked;
+            markCounter: 0,
         }
     },
     computed:{
@@ -59,7 +51,7 @@ export default {
             return theColor;
         },
         marker: function(){
-            return (this.isMarked&&!this.isOpened&&!this.isLost) ? '🚩' : ' ';
+            return (this.isMarked&&!this.isOpened) ? '🚩' : ' ';
         }
     },
 }
