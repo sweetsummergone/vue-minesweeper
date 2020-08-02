@@ -42,6 +42,7 @@ export default {
             }else{this.table.marksCounter += 1}
             if(this.table.marksCounter == this.table.mines){
                 this.isWin = this.table.checkMarksInMatrix();
+                if(this.isWin){this.table.gameEnd(this.table.matrixVisible);}
             }
         })
     },
